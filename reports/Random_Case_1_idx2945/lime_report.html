@@ -37089,25 +37089,25 @@
 /***/ })
 /******/ ]);
 //# sourceMappingURL=bundle.js.map </script></head><body>
-        <div class="lime top_div" id="top_divGYCTJ6S7IGAIKDD"></div>
+        <div class="lime top_div" id="top_divKPVIXEZBKEGQGNI"></div>
         
         <script>
-        var top_div = d3.select('#top_divGYCTJ6S7IGAIKDD').classed('lime top_div', true);
+        var top_div = d3.select('#top_divKPVIXEZBKEGQGNI').classed('lime top_div', true);
         
             var pp_div = top_div.append('div')
                                 .classed('lime predict_proba', true);
             var pp_svg = pp_div.append('svg').style('width', '100%');
-            var pp = new lime.PredictProba(pp_svg, ["Low Risk", "High Risk"], [0.47381637497206974, 0.5261836250279303]);
+            var pp = new lime.PredictProba(pp_svg, ["Low Risk", "High Risk"], [0.986934550838315, 0.013065449161685004]);
             
         
         var exp_div;
             var exp = new lime.Explanation(["Low Risk", "High Risk"]);
         
                 exp_div = top_div.append('div').classed('lime explanation', true);
-                exp.show([["0.01 < cat_high__2 <= 0.23", 0.13647347769774312], ["cat__primaryGenreName_Education <= 0.00", -0.06757880926629928], ["0.00 < cat__primaryGenreName_Games <= 1.00", 0.03985834368591033], ["cat__appDescriptionBrandSafetyRating_high <= 0.00", 0.026530634656618746], ["cat__countryCode_EMEA <= 0.00", -0.01938740245920781], ["cat__appDescriptionBrandSafetyRating_medium > 0.00", -0.01698761018344045], ["cat__developerCountry_REPUBLIC OF KOREA <= 0.00", -0.016120483915195005], ["cat__primaryGenreName_Travel & Local <= 0.00", 0.014636884843124092], ["0.00 < cat__downloads_100 - 500 <= 1.00", 0.013307985379494392], ["cat__developerCountry_HONG KONG <= 0.00", -0.012174277392274243]], 1, exp_div);
+                exp.show([["cat_high__2 <= 0.00", -0.11969574129804271], ["cat__primaryGenreName_Education <= 0.00", -0.06457828220208395], ["cat__primaryGenreName_Games <= 0.00", -0.037611334836752316], ["cat__appDescriptionBrandSafetyRating_high <= 0.00", 0.02530088858475626], ["cat__appDescriptionBrandSafetyRating_medium <= 0.00", 0.022690389069425252], ["cat__developerCountry_REPUBLIC OF KOREA <= 0.00", -0.02095641620634689], ["cat__developerCountry_INDIA <= 0.00", -0.02052157355885302], ["num__userRatingCount <= -0.88", 0.019406680822993086], ["cat__primaryGenreName_Travel & Local <= 0.00", 0.019326480615892774], ["-0.86 < num__averageUserRating <= 0.00", -0.017674248581401986]], 1, exp_div);
                 
         var raw_div = top_div.append('div');
-            exp.show_raw_tabular([["cat_high__2", "0.23", 0.13647347769774312], ["cat__primaryGenreName_Education", "0.00", -0.06757880926629928], ["cat__primaryGenreName_Games", "1.00", 0.03985834368591033], ["cat__appDescriptionBrandSafetyRating_high", "0.00", 0.026530634656618746], ["cat__countryCode_EMEA", "0.00", -0.01938740245920781], ["cat__appDescriptionBrandSafetyRating_medium", "1.00", -0.01698761018344045], ["cat__developerCountry_REPUBLIC OF KOREA", "0.00", -0.016120483915195005], ["cat__primaryGenreName_Travel & Local", "0.00", 0.014636884843124092], ["cat__downloads_100 - 500", "1.00", 0.013307985379494392], ["cat__developerCountry_HONG KONG", "0.00", -0.012174277392274243]], 1, raw_div);
+            exp.show_raw_tabular([["cat_high__2", "0.00", -0.11969574129804271], ["cat__primaryGenreName_Education", "0.00", -0.06457828220208395], ["cat__primaryGenreName_Games", "0.00", -0.037611334836752316], ["cat__appDescriptionBrandSafetyRating_high", "0.00", 0.02530088858475626], ["cat__appDescriptionBrandSafetyRating_medium", "0.00", 0.022690389069425252], ["cat__developerCountry_REPUBLIC OF KOREA", "0.00", -0.02095641620634689], ["cat__developerCountry_INDIA", "0.00", -0.02052157355885302], ["num__userRatingCount", "-0.88", 0.019406680822993086], ["cat__primaryGenreName_Travel & Local", "0.00", 0.019326480615892774], ["num__averageUserRating", "0.00", -0.017674248581401986]], 1, raw_div);
         
         </script>
         </body></html>

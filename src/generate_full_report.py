@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import joblib
 import os
-
+import random
 from src.explain_lime import explain_instance_lime
 from src.explain_shap import explain_instance_shap
 from src.explain_global import explain_global_importance
@@ -36,25 +36,41 @@ def main():
     preprocessor = pipeline[:-1]
     X_transformed = preprocessor.transform(X_raw)
 
-    print("3. Selecting Interesting Cases...")
+    print("3. Selecting Interesting Cases (Minimum 5)...")
     preds = pipeline.predict(X_raw)
     
     indices_map = {}
     
-    def get_idx(condition):
-        res = np.where(condition)[0]
-        return res[0] if len(res) > 0 else None
+    def get_idx(condition, exclude_indices=[]):
+        candidates = np.where(condition)[0]
+        candidates = [c for c in candidates if c not in exclude_indices]
+        return candidates[0] if len(candidates) > 0 else None
 
-    indices_map['True_HighRisk'] = get_idx((y_true == 1) & (preds == 1))
-    indices_map['True_LowRisk']  = get_idx((y_true == 0) & (preds == 0))
-    # Error Cases
-    indices_map['False_HighRisk'] = get_idx((y_true == 0) & (preds == 1))
-    indices_map['False_LowRisk']  = get_idx((y_true == 1) & (preds == 0))
+    indices_map['True_HighRisk']  = get_idx((y_true == 1) & (preds == 1), indices_map.values())
+    indices_map['True_LowRisk']   = get_idx((y_true == 0) & (preds == 0), indices_map.values())
+    indices_map['False_HighRisk'] = get_idx((y_true == 0) & (preds == 1), indices_map.values())
+    indices_map['False_LowRisk']  = get_idx((y_true == 1) & (preds == 0), indices_map.values())
+
+    indices_map = {k: v for k, v in indices_map.items() if v is not None}
+
+    required_count = 5
+    current_count = len(indices_map)
     
-    if indices_map['False_HighRisk'] is None: indices_map['Random_Case_1'] = 5
-    if indices_map['False_LowRisk'] is None: indices_map['Random_Case_2'] = 10
+    if current_count < required_count:
+        needed = required_count - current_count
+        print(f"   Found {current_count} specific cases. Adding {needed} random cases...")
+        
+        all_indices = list(range(len(X_raw)))
+        existing_indices = list(indices_map.values())
+        
+        available_indices = list(set(all_indices) - set(existing_indices))
+        
+        random_selection = random.sample(available_indices, min(needed, len(available_indices)))
+        
+        for i, idx in enumerate(random_selection):
+            indices_map[f'Random_Case_{i+1}'] = idx
 
-    print(f"   Selected Indices: {indices_map}")
+    print(f"   Selected Indices ({len(indices_map)} total): {indices_map}")
 
     print("\n4. Generating XAI Reports...")
     
@@ -76,7 +92,7 @@ def main():
         # B. Run SHAP (Local)
         explain_instance_shap(pipeline, X_transformed, idx, case_dir)
         
-        # C. Run Global Importance (Global Context)
+        # C. Run Global Feature Importance
         explain_global_importance(pipeline, X_raw, y_true, case_dir)
         
     print(f"\n[DONE] All reports generated in: {BASE_REPORT_DIR}")
