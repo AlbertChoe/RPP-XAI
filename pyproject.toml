@@ -1,0 +1,21 @@
+[project]
+name = "rpp-xai"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "category-encoders>=2.7.0",
+    "imbalanced-learn>=0.12.3",
+    "joblib>=1.4.0",
+    "lightgbm>=4.5.0",
+    "lime>=0.2.0.1",
+    "matplotlib>=3.9.0",
+    "numpy>=2.0.0",
+    "pandas>=2.2.0",
+    # FIX: Pin scikit-learn to <1.6 to prevent the '_is_pandas_df' error
+    "scikit-learn>=1.5.0,<1.6",
+    "scikit-optimize>=0.10.1",
+    "seaborn>=0.13.2",
+    "shap>=0.46.0",
+]
